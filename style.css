@@ -1,0 +1,202 @@
+body {
+    margin: 0;
+    overflow: hidden; /* 紙吹雪がはみ出さないように */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+    position: relative; /* オーバーレイ用 */
+}
+
+/* 背景オーバーレイ */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 読みやすいように暗くする */
+    z-index: 0;
+}
+
+.game-container {
+    position: relative;
+    z-index: 1; /* オーバーレイより手前に */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7); /* ゲーム部分の背景 */
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.6); /* ネオングリーンシャドウ */
+    border: 3px solid #0f0;
+}
+
+h1 {
+    font-size: 2.8rem;
+    margin-bottom: 40px;
+    color: #ffcc00; /* ゴールド */
+    text-shadow: 0 0 10px #ff0, 0 0 20px #ff0; /* ネオン効果 */
+}
+
+.slot-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.slot {
+    width: 100px;
+    height: 100px;
+    border: 5px solid #ffd700; /* ゴールドの枠 */
+    border-radius: 15px;
+    font-size: 3.5rem;
+    font-weight: bold;
+    background-color: #f0f0f0; /* リール背景色 */
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    position: relative;
+}
+
+#result {
+    font-size: 32px;
+    font-weight: bold;
+    height: 50px;
+    margin-top: 30px;
+    color: #ff4500; /* オレンジレッド */
+    text-shadow: 0 0 15px #f00; /* ネオン効果 */
+}
+
+button {
+    padding: 15px 50px;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background-color: #e74c3c; /* 赤色のボタン */
+    color: white;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #c0392b;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+    background-color: #95a5a6; /* 無効時の色 */
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* --- 大当たり演出 --- */
+body.win-bg {
+    background: radial-gradient(circle, #ffeb3b, #ffc107, #ff9800);
+    background-size: cover; /* グラデーションもカバー */
+    transition: background 0.5s ease;
+}
+
+.slot.win-glow {
+    animation: glow 1.2s infinite alternate;
+    color: #ff0; /* 光る文字の色 */
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px white, 0 0 20px gold, 0 0 30px orange;
+        transform: scale(1);
+    }
+    to {
+        text-shadow: 0 0 20px white, 0 0 40px gold, 0 0 60px orange;
+        transform: scale(1.05);
+    }
+}
+
+/* 画面フラッシュ */
+.flash-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    animation: flash 0.3s ease-out forwards;
+    z-index: 999; /* 最前面に */
+}
+
+@keyframes flash {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* 紙吹雪 */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* クリックを透過 */
+    overflow: hidden;
+    z-index: 99;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f00; /* 例の色 */
+    border-radius: 50%; /* 丸 */
+    animation: fall 3s linear forwards;
+    opacity: 0; /* 最初は透明 */
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotateZ(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotateZ(720deg);
+        opacity: 0.8;
+    }
+}
+
+/* 各スロットの文字色と背景調整（お好みで） */
+.slot {
+    /* デフォルトの文字色 */
+    color: #333;
+}
+/* 特定の文字に色をつける例 */
+.slot .char-内 { color: #00f; }
+.slot .char-定 { color: #f00; }
+.slot .char-！ { color: #0f0; }
+.slot .char-落 { color: #888; }
+.slot .char-選 { color: #888; }
+.slot .char-× { color: #888; }
+.slot .char-泣 { color: #888; }
+.slot .char-不 { color: #888; }
+
+/* ロゴなど画像を使う場合 */
+.slot img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}

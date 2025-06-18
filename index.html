@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内定パチスロ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>内定パチスロ！</h1>
+
+        <div class="slot-container">
+            <div class="slot" id="slot1">？</div>
+            <div class="slot" id="slot2">？</div>
+            <div class="slot" id="slot3">？</div>
+        </div>
+
+        <button id="spinButton">回す！</button>
+
+        <div id="result"></div>
+    </div>
+
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <audio id="bgm" src="sounds/bgm.mp3" loop></audio>
+    <audio id="soundStart" src="sounds/start.mp3"></audio>
+    <audio id="soundStop" src="sounds/stop.mp3"></audio>
+    <audio id="soundWin" src="sounds/win.mp3"></audio>
+    <audio id="soundLose" src="sounds/lose.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
