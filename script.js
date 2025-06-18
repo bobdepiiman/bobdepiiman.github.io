@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const winChars = ["内", "定", "！"]; // 当たり判定に使う正確な文字
-    const winProbability = 0.65; // 内定！が揃う確率 (65%)
+    const winProbability = 0.45; // 内定！が揃う確率 (45%)
 
     let slotIntervals = []; // 各スロットの setInterval ID を格納
     let slotValues = [];    // 最終的に停止したスロットの値を格納
